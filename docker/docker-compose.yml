@@ -1,0 +1,39 @@
+version: '2.3'
+
+# https://github.com/nvidia/nvidia-container-runtime#environment-variables-oci-spec
+services:
+  milvusdb:
+    image: milvusdb/milvus:0.7.0-cpu-d031120-de409b
+    container_name: milvusdb-container
+    restart: always
+    # runtime: nvidia
+    # environment:
+    #   - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - 19530:19530
+      - 19121:19121
+      - 9091:9091
+    volumes:
+      - ${MILVUS_HOME}/db:/var/lib/milvus/db
+      - ${MILVUS_HOME}/conf:/var/lib/milvus/conf
+      - ${MILVUS_HOME}/logs:/var/lib/milvus/logs
+      - ${MILVUS_HOME}/wal:/var/lib/milvus/wal
+    networks:
+      - container-link
+
+  app:
+    build: .
+    container_name: app-container
+    volumes:
+      - ../src:/workdir
+    working_dir: /workdir
+    command: python example.py
+    networks:
+      - container-link
+    depends_on:
+      - milvusdb
+
+networks:
+  container-link:
+    name: docker.internal
+    driver: bridge

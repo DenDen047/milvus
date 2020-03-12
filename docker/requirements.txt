@@ -1,0 +1,2 @@
+tqdm
+pymilvus==0.2.8
