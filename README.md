@@ -2,9 +2,14 @@
 
 ## Usage
 
-Firstly, you have to start the server running with Milvus.
+You can enjoy Milvus with Python.
 ```sh
-$ ./start_milvus.sh
+$ ./run.sh
+```
+
+Don't forget to shutdown docker-compose.
+```sh
+$ ./stop.sh
 ```
 
 ## TODO
