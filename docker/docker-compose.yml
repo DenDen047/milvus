@@ -4,6 +4,8 @@ version: '2.3'
 services:
   milvusdb:
     image: milvusdb/milvus:0.7.0-cpu-d031120-de409b
+    container_name: milvusdb-container
+    restart: always
     # runtime: nvidia
     # environment:
     #   - NVIDIA_VISIBLE_DEVICES=all
@@ -16,11 +18,22 @@ services:
       - ${MILVUS_HOME}/conf:/var/lib/milvus/conf
       - ${MILVUS_HOME}/logs:/var/lib/milvus/logs
       - ${MILVUS_HOME}/wal:/var/lib/milvus/wal
-  python-user:
+    networks:
+      - container-link
+
+  app:
     build: .
+    container_name: app-container
     volumes:
       - ../src:/workdir
     working_dir: /workdir
     command: python example.py
+    networks:
+      - container-link
     depends_on:
       - milvusdb
+
+networks:
+  container-link:
+    name: docker.internal
+    driver: bridge

@@ -15,4 +15,4 @@ fi
 
 # Start docker-compose
 cd ${MILVUS_HOME}/docker && \
-docker-compose up
+docker-compose up --build
