@@ -10,7 +10,7 @@ from milvus import Milvus, IndexType, MetricType
 
 # Milvus server IP address and port.
 # You may need to change _HOST and _PORT accordingly.
-_HOST = 'milvusdb-container' # '127.0.0.1'
+_HOST = 'milvus_server' # '127.0.0.1'
 _PORT = '19530'  # default value
 
 # Vector parameters
