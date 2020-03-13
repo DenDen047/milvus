@@ -83,10 +83,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/osx,linux,macos,windows
-
-
-# Milvus
-
-db/**
-logs/**
-wal/**

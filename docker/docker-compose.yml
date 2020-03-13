@@ -13,8 +13,8 @@ services:
     hostname: prometheus
     restart: always
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./server_down.yml:/etc/prometheus/node_down.yml
+      - ${PROMETHEUS_HOME}/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ${PROMETHEUS_HOME}/server_down.yml:/etc/prometheus/node_down.yml
     ports:
       - "9090:9090"
     networks:
@@ -26,7 +26,7 @@ services:
     hostname: alertmanager
     restart: always
     volumes:
-      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ${PROMETHEUS_HOME}/alertmanager.yml:/etc/alertmanager/alertmanager.yml
     ports:
       - "9093:9093"
     networks:
@@ -68,7 +68,7 @@ services:
     volumes:
       - ../src:/workdir
     working_dir: /workdir
-    command: ./test_python.sh
+    command: python example.py
     networks:
       - application
     depends_on:
