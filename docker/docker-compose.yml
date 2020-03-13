@@ -3,6 +3,8 @@ version: '2.3'
 networks:
   monitor:
     driver: bridge
+  application:
+    driver: bridge
 
 services:
   prometheus:
@@ -41,6 +43,7 @@ services:
       - monitor
 
   milvus_server:
+    container_name: milvus_server
     # runtime: nvidia
     # image: milvusdb/milvus:latest
     image: milvusdb/milvus:0.7.0-cpu-d031120-de409b
@@ -52,11 +55,21 @@ services:
     volumes:
       - ${MILVUS_HOME}/conf/server_config.yaml:/var/lib/milvus/conf/server_config.yaml
       - ${MILVUS_HOME}/conf/log_config.conf:/var/lib/milvus/conf/log_config.conf
-      - ${MILVUS_HOME}/src:/workdir
-    working_dir: /workdir
-    command: python example.py
     ports:
       - "8080:8080"
       - "19530:19530"
     networks:
       - monitor
+      - application
+
+  app:
+    build: .
+    container_name: app_container
+    volumes:
+      - ../src:/workdir
+    working_dir: /workdir
+    command: python example.py
+    networks:
+      - application
+    depends_on:
+      - milvus_server

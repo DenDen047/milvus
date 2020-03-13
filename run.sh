@@ -27,3 +27,10 @@ fi
 # Start docker-compose
 cd ${MILVUS_HOME}/docker && \
 docker-compose up -d --build
+
+# show the status of `app`
+cd ${MILVUS_HOME}/docker && \
+docker-compose logs \
+    --follow \
+    --timestamps \
+    app
