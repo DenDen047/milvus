@@ -52,6 +52,9 @@ services:
     volumes:
       - ${MILVUS_HOME}/conf/server_config.yaml:/var/lib/milvus/conf/server_config.yaml
       - ${MILVUS_HOME}/conf/log_config.conf:/var/lib/milvus/conf/log_config.conf
+      - ${MILVUS_HOME}/src:/workdir
+    working_dir: /workdir
+    command: python example.py
     ports:
       - "8080:8080"
       - "19530:19530"

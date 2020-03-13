@@ -26,13 +26,13 @@ scrape_configs:
     static_configs:
     - targets: ['prometheus:9090']
 
-   # scrape metrics of server
+  # scrape metrics of server
   - job_name: 'milvus_server'
     scrape_interval: 1s
     static_configs:
     - targets: ['milvus_server:8080']
 
-   # under development
+  # under development
   - job_name: 'pushgateway'
     static_configs:
     - targets: ['pushgateway:9091']

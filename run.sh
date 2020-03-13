@@ -26,4 +26,4 @@ fi
 
 # Start docker-compose
 cd ${MILVUS_HOME}/docker && \
-docker-compose up --build
+docker-compose up -d --build
