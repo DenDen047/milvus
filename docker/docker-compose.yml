@@ -68,7 +68,7 @@ services:
     volumes:
       - ../src:/workdir
     working_dir: /workdir
-    command: python example.py
+    command: ./test_python.sh
     networks:
       - application
     depends_on:
